@@ -65,29 +65,21 @@ if ${use_color} ; then
 			eval $(dircolors -b /etc/DIR_COLORS)
 		fi
 	fi
-	if [[ ${EUID} == 0 ]] ; then
-		PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
-	else
-		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
-	fi
 
 	# aliases
 	#neofetch --jp2a ~/Pictures/picture.jpg # requires jp2a and imagemagick
-	alias ls='ls -la'
 	alias grep='grep --colour=auto'
 	alias egrep='egrep --colour=auto'
 	alias fgrep='fgrep --colour=auto'
 	alias check_shell="echo $0"
-	alias vim='nvim'
 	alias gpg-create='gpg -c --no-symkey-cache --cipher-algo AES256'
 	alias nvidia-run='env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
 	alias filesize='du -sh'
-	alias ffmpeg-recordscreen='ffmpeg -r 25 -f x11grab -s 1920x1080 -i :0.0+1600,0 -vb 20M out.mp4'
-	alias ffmpeg-recordmic='ffmpeg -r 25 -f x11grab -s 1920x1080 -i :0.0+1600,0 -f alsa -i hw:0 -vb 20M out.mp4'
+	alias ffmpeg-recordscreen='ffmpeg -r 25 -f x11grab -s 1920x1080 -i :0.0 -vb 20M out.mp4'
+	alias ffmpeg-recordmic='ffmpeg -r 25 -f x11grab -s 1920x1080 -i :0.0 -f alsa -i hw:0 -vb 20M out.mp4'
 	alias tai='tai -S ascii --table " ,.,:,x,@"'
 	#gentoo specific
-	alias upd8='emerge -uDN @world && emerge @module-rebuild'
-	alias upd8time='emerge -pU @world | genlop --pretend'
+	alias update='emerge --sync && emerge --ask --verbose --update --deep --with-bdeps=y --keep-going=y --newuse @world && emerge --depclean'
 	alias list='qlist -IRv'
 	#alias emerge='emerge -aq'
 	alias qdepends='qdepends -Q '%{CAT}/%{PN}:%{SLOT}' ^'
