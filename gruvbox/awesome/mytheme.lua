@@ -12,7 +12,7 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 
 -- Background colors
-local bg        = "#282828"
+local bg        = "#1b1a18"
 local bg1       = "#3c3836"
 local bg_red    = "#cc241d"
 local bg_green  = "#98971a"
@@ -47,8 +47,8 @@ theme.fg_focus      = fg
 theme.fg_urgent     = fg_purple
 theme.fg_minimize   = fg
 
-theme.useless_gap   = dpi(4)
-theme.border_width  = dpi(2)
+theme.useless_gap   = dpi(8)
+theme.border_width  = dpi(3)
 theme.border_normal = bg
 theme.border_focus  = fg
 theme.border_marked = bg_red
