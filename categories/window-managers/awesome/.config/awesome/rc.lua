@@ -1,22 +1,3 @@
---    _          _                        _
---   / \   _ __ | |_ ___  _ __ ___  _   _| |_ ___  ___
---  / _ \ | '_ \| __/ _ \| '_ ` _ \| | | | __/ _ \/ __|
--- / ___ \| | | | || (_) | | | | | | |_| | || (_) \__ \
---/_/   \_\_| |_|\__\___/|_| |_| |_|\__,_|\__\___/|___/
-
---    _                                            ____             __ _
---   / \__      _____  ___  ___  _ __ ___   ___   / ___|___  _ __  / _(_) __ _
---  / _ \ \ /\ / / _ \/ __|/ _ \| '_ ` _ \ / _ \ | |   / _ \| '_ \| |_| |/ _` |
--- / ___ \ V  V /  __/\__ \ (_) | | | | | |  __/ | |__| (_) | | | |  _| | (_| |
---/_/   \_\_/\_/ \___||___/\___/|_| |_| |_|\___|  \____\___/|_| |_|_| |_|\__, |
---                                                                       |___/
-
-
--- NOTE: PLEASE MAKE SURE TO HAVE THE REQUIRED PROGRAMS INSTALLED TO USE THIS CODE
--- IT MAY BE POSSIBLE THAT YOU'LL HAVE TO DELETE THE WIDGETS AND ADD THEM YOURSELF MANUALLY AS IT SEEMS TO BE A GLITCH
-
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
 -- Standard awesome library
@@ -25,12 +6,9 @@ local awful = require("awful")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
-local volumebar_widget = require("awesome-wm-widgets.volume-widget.volume")
-local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
-local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
@@ -40,11 +18,6 @@ require("awful.hotkeys_popup.keys")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
-if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
-end
 
 -- Handle runtime errors after startup
 do
@@ -54,9 +27,6 @@ do
         if in_error then return end
         in_error = true
 
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = tostring(err) })
         in_error = false
     end)
 end
@@ -68,7 +38,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "mytheme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
-editor = os.getenv("EDITOR") or "nvim"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -80,7 +50,6 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
     --awful.layout.suit.tile.left,
     --awful.layout.suit.tile.bottom,
@@ -89,6 +58,7 @@ awful.layout.layouts = {
     --awful.layout.suit.fair.horizontal,
     --awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.floating,
     awful.layout.suit.max,
     --awful.layout.suit.max.fullscreen,
     --awful.layout.suit.magnifier,
@@ -97,36 +67,14 @@ awful.layout.layouts = {
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
 }
--- }}}
-
--- {{{ Menu
--- Create a launcher widget and a main menu
---myawesomemenu = {
---   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
---   { "manual", terminal .. " -e man awesome" },
---   { "edit config", editor_cmd .. " " .. awesome.conffile },
---   { "restart", awesome.restart },
---   { "quit", function() awesome.quit() end },
---}
-
---mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
---                                    { "open terminal", terminal }
---                                  }
---                        })
-
---mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
---                                     menu = mymainmenu })
-
--- Menubar configuration
---menubar.utils.terminal = alacritty -- Set the terminal for applications that require it
--- }}}
 
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+--mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock(" [ %m / %d ] [ %H:%M ] ", 60)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -188,7 +136,8 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ " 一 ", " 二 ", " 三 ", " 四 ", " 五 ", " 六 " , " 七 ", " 八 ", " 九 " }, s,
+    -- awful.tag({ " 一 ", " 二 ", " 三 ", " 四 ", " 五 ", " 六 " , " 七 ", " 八 ", " 九 " }, s,
+    awful.tag({ " home ", " www ", " term ", " dnd " }, s,
        -- awful.tag({ "1", "2", "3", "4", "5" }, s,
      awful.layout.layouts[1])
 
@@ -218,7 +167,7 @@ awful.screen.connect_for_each_screen(function(s)
 
 
     -- Create the wibox
-	s.mywibox = awful.wibar({ position = "top", screen = s, bg = beautiful.bg_normal, height = "19"})
+	s.mywibox = awful.wibar({ position = "top", screen = s, bg = beautiful.bg_normal, height = "22"})
 	--s.mywibox = awful.wibar({ position = "bottom", screen = s, bg = beautiful.bg_normal, height = "20" })
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -231,9 +180,6 @@ awful.screen.connect_for_each_screen(function(s)
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
-        	volumebar_widget{
-			type='arc'
-		},
             layout = wibox.layout.fixed.horizontal,
             --mykeyboardlayout,
             wibox.widget.systray(),
@@ -341,11 +287,6 @@ globalkeys = gears.table.join(
 
     -- Prompt
 
-    awful.key({ modkey },            "d",     function ()
-    			awful.util.spawn("dmenu_run -fn 'Iosevka' -nb '#1d1f21' -nf '#384b48' -sb '#1d1f21' -sf '#f8f8f2'") end,
-    		 -- awful.util.spawn("rofi -show") end,
-              {description = "dmenu run", group = "launcher"}),
-
       awful.key({ modkey }, "b",
                 function ()
                     myscreen = awful.screen.focused()
@@ -355,6 +296,7 @@ globalkeys = gears.table.join(
       ),
       	
 awful.key({ }, "Print", function () awful.util.spawn("import -window root out.png") end), 
+
       
     awful.key({ modkey }, "x",
               function ()
@@ -367,6 +309,10 @@ awful.key({ }, "Print", function () awful.util.spawn("import -window root out.pn
               end,
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
+	awful.key({ modkey },            "d",     function ()
+    awful.util.spawn("dmenu_run -fn 'Iosevka' -nb '#282828' -nf '#504945' -sb '#282828' -sf '#689d6a'") end,
+	{description = "dmenu run", group = "launcher"}),
+    
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
 )
@@ -605,5 +551,8 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 --Autostart Applications
 awful.spawn.with_shell("./.screenlayout/screen.sh")
 awful.spawn.with_shell("fcitx")
-awful.spawn.with_shell("dunst &")
-awful.spawn.with_shell("feh --bg-fill ~/.wallpapers/city/japan/masaaki.png")
+awful.spawn.with_shell("discord")
+--awful.spawn.with_shell("feh --bg-fill ~/Pictures/wallpaper/gruvbox-anime-pixel-art-1509771.jpg")
+awful.spawn.with_shell("feh --bg-fill Pictures/.wallpapers/1641639252550.jpg")
+awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf")
+--awful.spawn.with_shell("dbus-launch")

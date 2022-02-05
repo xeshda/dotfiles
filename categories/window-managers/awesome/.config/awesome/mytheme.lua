@@ -1,19 +1,5 @@
---    _          _                        _
---   / \   _ __ | |_ ___  _ __ ___  _   _| |_ ___  ___
---  / _ \ | '_ \| __/ _ \| '_ ` _ \| | | | __/ _ \/ __|
--- / ___ \| | | | || (_) | | | | | | |_| | || (_) \__ \
---/_/   \_\_| |_|\__\___/|_| |_| |_|\__,_|\__\___/|___/
-
---    _                                            ____             __ _
---   / \__      _____  ___  ___  _ __ ___   ___   / ___|___  _ __  / _(_) __ _
---  / _ \ \ /\ / / _ \/ __|/ _ \| '_ ` _ \ / _ \ | |   / _ \| '_ \| |_| |/ _` |
--- / ___ \ V  V /  __/\__ \ (_) | | | | | |  __/ | |__| (_) | | | |  _| | (_| |
---/_/   \_\_/\_/ \___||___/\___/|_| |_| |_|\___|  \____\___/|_| |_|_| |_|\__, |
---                                                                       |___/
-
-
 ---------------------------
--- Default awesome theme --
+-- Gruvbox awesome theme --
 ---------------------------
 
 local theme_assets = require("beautiful.theme_assets")
@@ -25,26 +11,48 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
+-- Background colors
+-- local bg        = "#1b1a18"
+local bg        = "#282828"
+local bg1       = "#3c3836"
+local bg_red    = "#cc241d"
+local bg_green  = "#98971a"
+local bg_yellow = "#d79921"
+local bg_blue   = "#458588"
+local bg_purple = "#b16286"
+local bg_aqua   = "#689d6a"
+local bg_gray   = "#a89984"
+local bg_orange = "#d65d0e"
+
+-- Foreground colors
+local fg        = "#ebdbb2"
+local fg_red    = "#fb4934"
+local fg_green  = "#b8bb26"
+local fg_yellow = "#fabd2f"
+local fg_blue   = "#83a598"
+local fg_purple = "#d3869b"
+local fg_aqua   = "#8ec07c"
+local fg_gray   = "#928374"
+local fg_orange = "#fe8019"
+
 theme.font          = "Terminus 10"
 
-theme.bg_normal     = "#1d1f21"
-theme.bg_focus      = "#384b48"
-theme.bg_urgent     = "#415556"
-theme.bg_minimize   = "#1d1f21"
-theme.bg_systray    = theme.bg_normal
+theme.bg_normal     = bg
+theme.bg_focus      = bg1
+theme.bg_urgent     = bg1
+theme.bg_minimize   = bg_aqua
+theme.bg_systray    = bg
 
---theme.fg_normal     = "#4c566a" 
-theme.fg_normal     = "#d4c0d0" 
---theme.fg_focus      = "#616e88"
-theme.fg_focus      = "#1d1f21" 
-theme.fg_urgent     = "#9b758f"
-theme.fg_minimize   = "#948691"
+theme.fg_normal     = fg
+theme.fg_focus      = fg
+theme.fg_urgent     = fg_purple
+theme.fg_minimize   = fg
 
-theme.useless_gap   = dpi(2)
+theme.useless_gap   = dpi(8)
 theme.border_width  = dpi(3)
-theme.border_normal = "#1d1f21" 
-theme.border_focus  = "#384b48" 
-theme.border_marked = "#384b48"
+theme.border_normal = bg
+theme.border_focus  = fg
+theme.border_marked = bg_red
 
 -- There are other variable sets
 -- overriding the default one when
@@ -77,7 +85,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
---theme.menu_submenu_icon = themes_path.."default/submenu.png"
+theme.menu_submenu_icon = themes_path.."default/submenu.png"
 theme.menu_height = dpi(15)
 theme.menu_width  = dpi(100)
 
@@ -87,31 +95,31 @@ theme.menu_width  = dpi(100)
 --theme.bg_widget = "#cc0000"
 
 -- Define the image to load
---theme.titlebar_close_button_normal = themes_path.."default/titlebar/close_normal.png"
---theme.titlebar_close_button_focus  = themes_path.."default/titlebar/close_focus.png"
+theme.titlebar_close_button_normal = themes_path.."default/titlebar/close_normal.png"
+theme.titlebar_close_button_focus  = themes_path.."default/titlebar/close_focus.png"
 
---theme.titlebar_minimize_button_normal = themes_path.."default/titlebar/minimize_normal.png"
---theme.titlebar_minimize_button_focus  = themes_path.."default/titlebar/minimize_focus.png"
+theme.titlebar_minimize_button_normal = themes_path.."default/titlebar/minimize_normal.png"
+theme.titlebar_minimize_button_focus  = themes_path.."default/titlebar/minimize_focus.png"
 
---theme.titlebar_ontop_button_normal_inactive = themes_path.."default/titlebar/ontop_normal_inactive.png"
---theme.titlebar_ontop_button_focus_inactive  = themes_path.."default/titlebar/ontop_focus_inactive.png"
---theme.titlebar_ontop_button_normal_active = themes_path.."default/titlebar/ontop_normal_active.png"
---theme.titlebar_ontop_button_focus_active  = themes_path.."default/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive = themes_path.."default/titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive  = themes_path.."default/titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active = themes_path.."default/titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active  = themes_path.."default/titlebar/ontop_focus_active.png"
 
---theme.titlebar_sticky_button_normal_inactive = themes_path.."default/titlebar/sticky_normal_inactive.png"
---theme.titlebar_sticky_button_focus_inactive  = themes_path.."default/titlebar/sticky_focus_inactive.png"
---theme.titlebar_sticky_button_normal_active = themes_path.."default/titlebar/sticky_normal_active.png"
---theme.titlebar_sticky_button_focus_active  = themes_path.."default/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive = themes_path.."default/titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive  = themes_path.."default/titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active = themes_path.."default/titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active  = themes_path.."default/titlebar/sticky_focus_active.png"
 
---theme.titlebar_floating_button_normal_inactive = themes_path.."default/titlebar/floating_normal_inactive.png"
---theme.titlebar_floating_button_focus_inactive  = themes_path.."default/titlebar/floating_focus_inactive.png"
---theme.titlebar_floating_button_normal_active = themes_path.."default/titlebar/floating_normal_active.png"
---theme.titlebar_floating_button_focus_active  = themes_path.."default/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive = themes_path.."default/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive  = themes_path.."default/titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active = themes_path.."default/titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active  = themes_path.."default/titlebar/floating_focus_active.png"
 
---theme.titlebar_maximized_button_normal_inactive = themes_path.."default/titlebar/maximized_normal_inactive.png"
---theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar/maximized_focus_inactive.png"
---theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
---theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_inactive = themes_path.."default/titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
 
 theme.wallpaper = themes_path.."default/background.png"
 
@@ -145,5 +153,3 @@ theme.icon_theme = nil
 return theme
 
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
-
-
