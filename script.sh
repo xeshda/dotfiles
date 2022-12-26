@@ -8,3 +8,5 @@ mv .emacs ~/
 mv .emacs.d ~/
 
 mv .vimrc ~/
+
+mv picom.conf ~/.config/
