@@ -547,8 +547,9 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 --Autostart Applications
-awful.spawn.with_shell("./.screenlayout/screen.sh")
-awful.spawn.with_shell("discord")
+awful.spawn.with_shell("./.screenlayout/screen.sh");
+awful.spawn.with_shell("discord");
 awful.spawn.with_shell("feh --bg-fill ~/Pictures/wallpapers/zelda_botw_by_slawek_fedorczuk_3840x2160.png");
-awful.spawn.with_shell("xrdb -merge ~/.Xresources")
-awful.spawn.with_shell("volumeicon")
+awful.spawn.with_shell("xrdb -merge ~/.Xresources");
+awful.spawn.with_shell("volumeicon");
+awful.spawn.with_shell("picom --config ~/.config/picom.conf");
