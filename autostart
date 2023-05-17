@@ -1,0 +1,16 @@
+~/.screenlayout/screen.sh
+
+xrdb -merge ~/.Xresources
+gentoo-pipewire-launcher &
+
+# shuffle wallpaper and colorscheme setter
+# ./pip/bin/wal -i ~/Pictures/wallpapers/active/ -b 222222
+./pip/bin/wal -i ~/Pictures/wallpapers/active/1206684.jpg -b 222222
+
+polybar &
+sleep 6
+volumeicon &
+blueman_applet &
+nm-applet &
+
+picom --config ~/.config/picom/picom.conf

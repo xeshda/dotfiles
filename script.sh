@@ -1,12 +1,7 @@
-mv .Xresources ~/.
-
-git clone https://github.com/streetturtle/awesome-wm-widgets
-mv awesome ~/.config/
-mv awesome-wm-widgets ~/.config/awesome/
-
-mv .emacs ~/
-mv .emacs.d ~/
-
+doas mv .config/openbox/Surreal_Gentoo /usr/share/themes
+mv .bashrc ~/
+mv .config/openbox ~/.config/
+mv .config/tint2 ~/.config/
+mv .icons/Mythra ~/.icons/
+mv Pictures/ ~/
 mv .vimrc ~/
-
-mv picom.conf ~/.config/
