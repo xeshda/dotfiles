@@ -1,4 +1,0 @@
-./.screenlayout/screenlayout.sh
-nitrogen --restore
-exec dwmblocks &
-exec dunst &
