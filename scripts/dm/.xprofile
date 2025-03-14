@@ -1,0 +1,2 @@
+exec dwmblocks &
+exec dunst &
