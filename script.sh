@@ -1,10 +1,10 @@
-cd dwmi-*
+cd dwm-*
 sudo make clean install
 cd ..
-cd dwmblocks
+cd dwmblocks*
 sudo make clean install
 cd ..
-cd dmenu
+cd dmenu*
 sudo make clean install
 cd ..
 cp -r .vimrc ~/
