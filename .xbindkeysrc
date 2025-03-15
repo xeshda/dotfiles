@@ -1,0 +1,36 @@
+# xbindkeys -k to find value
+
+# Increase volume
+"pactl set-sink-volume @DEFAULT_SINK@ +1000"
+   XF86AudioRaiseVolume
+
+# Decrease volume
+"pactl set-sink-volume @DEFAULT_SINK@ -1000"
+   XF86AudioLowerVolume
+
+# Mute volume
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+   XF86AudioMute
+
+# Mute microphone
+"pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+   XF86AudioMicMute
+
+# Audio previous
+"playerctl previous"
+	XF86AudioPrev
+
+# Audio play
+"playerctl play-pause"
+	XF86AudioPlay
+
+# Audio next
+"playerctl next"
+	XF86AudioNext
+
+# Screenshot with imagemagick and copy it to clipboard
+"filename=$(date "+%Y%m%d-%H%M%S").png && import -window root "$filename" && xclip -selection clipboard -t image/png -i "$filename""		
+	m:0x10 + c:107
+
+"filename=$(date "+%Y%m%d-%H%M%S").png && import -window "$(xprop -root | grep '_NET_ACTIVE_WINDOW(WINDOW)' | cut -d ' ' -f 5)" $filename && xclip -selection clipboard -t image/png -i $filename"
+	Shift +	m:0x10 + c:107
