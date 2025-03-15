@@ -15,4 +15,4 @@ bind 'set show-all-if-ambiguous on'
 # bind 'TAB:menu-complete'
 
 # restore last wal
-wal -n -R -q
+wal -b "#181619" -n -R -q
