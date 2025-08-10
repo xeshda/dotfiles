@@ -1,5 +1,28 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
+static const char *const autostart[] = {
+	"dunst", NULL,
+	"dwmblocks", NULL,
+	"nitrogen --restore", NULL,
+	"volumeicon", NULL,
+	NULL
+};
+
+// VOLUME KEYS
+
+static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%",   NULL };
+static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%",   NULL };
+static const char *mute_vol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
+
+// BRIGHTNESS
+
+
+static const char *brighter[] = { "var=$(cat /sys/class/backlight/amdgpu_bl0/brightness); echo $((var+50)) > /sys/class/backlight/amdgpu_bl0/brightness", NULL };
+static const char *dimmer[] = { "var=$(cat /sys/class/backlight/amdgpu_bl0/brightness); echo $((var-50)) > /sys/class/backlight/amdgpu_bl0/brightness", NULL };
+
+
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 6;        /* gaps between windows */
@@ -13,14 +36,13 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
-//static const char col_gray1[]       = "#222222";
-static const char col_gray1[]       = "#181619";
-static const char col_gray2[]       = "#444444";
-//static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#181619";
-// static const char col_cyan[]        = "#005577";
-static const char col_cyan[]        = "#D6A66A";
+
+static const char col_gray1[]       = "#0a0708"; // BACKGROUND
+static const char col_gray2[]       = "#444444"; // UNSELECTED BORDER
+static const char col_gray3[]       = "#bbbbbb"; // WHITE TEXT FG
+static const char col_gray4[]       = "#181619"; // DARK TEXT (SELECTED) FG 
+//static const char col_cyan[]        = "#a39c9f"; // SELECTED BORDER / BAR
+static const char col_cyan[]        = "#444444"; // SELECTED BORDER / BAR
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -67,7 +89,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -104,6 +126,15 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	//
+	// CUSTOM KEYBINDS
+	//
+	{ 0, XF86XK_AudioMute,        spawn, {.v = mute_vol } },
+	{ 0, XF86XK_AudioLowerVolume, spawn, {.v = down_vol } },
+	{ 0, XF86XK_AudioRaiseVolume, spawn, {.v = up_vol } },
+	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = dimmer } },
+  { 0, XF86XK_MonBrightnessUp,   spawn, {.v = brighter } },
+
 };
 
 /* button definitions */

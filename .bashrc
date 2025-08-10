@@ -1,18 +1,24 @@
+# /etc/skel/.bashrc
 #
-# ~/.bashrc
-#
+# This file is sourced by all *interactive* bash shells on startup,
+# including some apparently interactive shells such as scp and rcp
+# that can't tolerate any output.  So make sure this doesn't display
+# anything or bad things will happen !
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-PS1='\u@\h \W\$ '
+# Test for an interactive shell.  There is no need to set anything
+# past this point for scp and rcp, and it's important to refrain from
+# outputting anything in those cases.
+if [[ $- != *i* ]] ; then
+	# Shell is non-interactive.  Be done now!
+	return
+fi
+
+# Put your fun stuff here.
+tmux
+#xrdb -merge ~/.Xresources
+
 # alias
-
-# Auto-completion
-bind 'set show-all-if-ambiguous on'
-# bind 'TAB:menu-complete'
-
-# restore last wal
-wal -b "#181619" -n -R -q
+alias update="emerge --ask --update --deep --newuse @world"
+alias sudo="doas"
+alias ls="ls -la"
