@@ -1,4 +1,4 @@
-exec dbus-run-session dwm
+dwm
 while true; do
     # Log stderror to a file
     dwm 2> ~/.dwm.log
