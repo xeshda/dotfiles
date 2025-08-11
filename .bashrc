@@ -19,6 +19,6 @@ tmux
 #xrdb -merge ~/.Xresources
 
 # alias
-alias update="emerge --ask --update --deep --newuse @world"
+alias update="emerge -avuDN --with-bdeps=y @world"
 alias sudo="doas"
 alias ls="ls -la"
